@@ -4,3 +4,4 @@ build
 *.txt
 *.spec
 !license.txt
+!notice.txt
