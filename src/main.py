@@ -12,8 +12,6 @@ def to_webnovel_text(from_filename, to_filename):
             line = line[0].replace(' ', '　') + line[1:]
             if( line[0] == '　' ):
                 line = line[1:]
-            print(line)
-            print()
             file.write(f'{line}\n\n')
     file.close()
 
@@ -34,7 +32,6 @@ while True:
         to_path = values['to']
         basename = os.path.basename(from_filename)
         to_filename = f'{to_path}/webConv-{basename}'
-        print(basename)
         to_webnovel_text(from_filename, to_filename)
         break
 
