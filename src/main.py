@@ -2,18 +2,17 @@ import os
 import PySimpleGUI as sg
 
 def to_webnovel_text(from_filename, to_filename):
-    file = open(from_filename, 'r', encoding='utf-8')
-    lines = file.read().splitlines()
-    file.close()
+    
+    with open(from_filename, 'r', encoding='utf-8') as file:
+        lines = file.read().splitlines()
 
-    file = open(to_filename, 'w', encoding='utf-8')
-    for line in lines:
-        if( line != '' ):
-            line = line[0].replace(' ', '　') + line[1:]
-            if( line[0] == '　' ):
-                line = line[1:]
-            file.write(f'{line}\n\n')
-    file.close()
+    with open(to_filename, 'w', encoding='utf-8') as file:
+        for line in lines:
+            if( line != '' ):
+                line = line[0].replace(' ', '　') + line[1:]
+                if( line[0] == '　' ):
+                    line = line[1:]
+                file.write(f'{line}\n\n')
 
 
 layout = [
@@ -39,5 +38,3 @@ while True:
         break
 
 window.close()
-
-
