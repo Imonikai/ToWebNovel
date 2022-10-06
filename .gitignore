@@ -4,6 +4,7 @@ build
 *.txt
 *.spec
 *.png
+*.ico
 !license.txt
 !notice.txt
 !requirements.txt
