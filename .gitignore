@@ -3,6 +3,7 @@ dist
 build
 *.txt
 *.spec
+*.png
 !license.txt
 !notice.txt
 !requirements.txt
