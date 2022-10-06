@@ -29,11 +29,11 @@ window = sg.Window('ウェブ小説用の改行挿入と字下げ削除', layout
 while True:
     event, values = window.read()
 
-    if( values['from'] != '' and values['to'] != '' and event == '変換'):
-        cvt_webnovel(values['from'], values['to'], values['del_indent'], values['enter_empty_line'])
-        break
-
     if event in [None, 'やめる']:
         break
+
+    if(values['from'] != '' and values['to'] != '' and event == '変換'):
+        cvt_webnovel(values['from'], values['to'], values['del_indent'], values['enter_empty_line'])
+        sg.popup_ok('変換しました')
 
 window.close()
