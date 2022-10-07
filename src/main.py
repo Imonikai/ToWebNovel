@@ -4,19 +4,17 @@ import PySimpleGUI as sg
 def cvt_webnovel(from_filename, to_filename, del_indent):
     
     with open(from_filename, 'r', encoding='utf-8') as file:
-        lines = file.read().splitlines()
+        lines = file.readlines()
 
     with open(to_filename, 'w', encoding='utf-8') as file:
         for line in lines:
-            if(line != ''):
+            if(line != '\n'):
                 line = line[0].replace(' ', '　') + line[1:]
                 if( line[0] == '　' and del_indent):
                     line = line[1:]
-                file.write(f'{line}\n\n')
-            else:
-                file.write('\n')
-
-
+                file.write(f'{line}\n')
+            elif( line == '\n' ):
+                file.write(line)
 
 layout = [
     [sg.Checkbox('字下げ削除', default=False, key='del_indent')],
