@@ -8,12 +8,12 @@ def cvt_webnovel(from_filename, to_filename, del_indent):
 
     with open(to_filename, 'w', encoding='utf-8') as file:
         for line in lines:
-            if(line != '\n'):
+            if(line != '[\n\r\n]'):
                 line = line[0].replace(' ', '　') + line[1:]
                 if( line[0] == '　' and del_indent):
                     line = line[1:]
                 file.write(f'{line}\n')
-            elif( line == '\n' ):
+            elif( line == '[\n\r\n]' ):
                 file.write(line)
 
 layout = [
