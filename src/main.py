@@ -1,20 +1,33 @@
 import os
 import PySimpleGUI as sg
+import re
+from chardet.universaldetector import UniversalDetector
 
 def cvt_webnovel(from_filename, to_filename, del_indent):
-    
-    with open(from_filename, 'r', encoding='utf-8') as file:
+
+    with open(from_filename, 'rb') as file:
+        detector = UniversalDetector()
+        for line in file:
+            detector.feed(line)
+            if detector.done:
+                break;
+        detector.close()
+        charcode = detector.result['encoding']
+    print(charcode)
+
+    with open(from_filename, 'r', encoding=charcode) as file:
         lines = file.readlines()
 
-    with open(to_filename, 'w', encoding='utf-8') as file:
+    with open(to_filename, 'w', encoding=charcode) as file:
         for line in lines:
-            if(line != '[\n\r\n]'):
-                line = line[0].replace(' ', '　') + line[1:]
-                if( line[0] == '　' and del_indent):
-                    line = line[1:]
-                file.write(f'{line}\n')
-            elif( line == '[\n\r\n]' ):
-                file.write(line)
+            line = line[0].replace(' ', '　') + line[1:]
+            if( line[0] == '　' and del_indent):
+                line = line[1:]
+            line = re.sub('[\n\r\n]', '', line)
+            if line == '':
+                file.write('\n')
+            else:
+                file.write(f'{line}\n\n')
 
 layout = [
     [sg.Checkbox('字下げ削除', default=False, key='del_indent')],
